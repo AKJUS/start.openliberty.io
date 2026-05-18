@@ -16,9 +16,12 @@ const convertNum2Str = {
   '11': '11',
   '17': '17',
   '21': '21',
+  '25': '25',
+  '11.0': '11',
   '10.0': '10',
   '9.1': '91',
   '8.0': '8',
+  '7.1': '71',
   '7.0': '7',
   '6.1': '61',
   '6.0': '6',
@@ -31,9 +34,26 @@ const convertNum2Str = {
 };
 
 // must define all possible valid combinations of jakarta and mp
-// keep in mind not all java versions work with all of these for ex. ee10, mp6 cannot use java 8
+// keep in mind not all java versions work with all of these for ex. ee10, mp6 / mp 7 cannot use java 8
+// and ee11, mp7 cannot use java 8 or 11
 
 let jakarta_mp_versions = [
+  {
+    jakarta: "11.0",
+    mp: "7.1"
+  },
+  {
+    jakarta: "11.0",
+    mp: "7.0"
+  },
+  {
+    jakarta: "11.0",
+    mp: "None"
+  },
+  {
+    jakarta: "10.0",
+    mp: "7.1"
+  },
   {
     jakarta: "10.0",
     mp: "7.0"
@@ -166,10 +186,14 @@ if (mpVer) {
 // select java last because occasionally it's not getting the right version if it's first
 cy.get('#Starter_Java_Version',{ timeout:10000 }).select(convertNum2Str[Cypress.env('JDK_VERSION')]);
 
-if ((Cypress.env('JDK_VERSION') == '8') && ((jktVer == '10.0') || (mpVer == '7.0') || (mpVer == '6.1') || (mpVer == '6.0'))) {
+if ((Cypress.env('JDK_VERSION') == '8') && ((jktVer == '10.0') || (mpVer == '7.1') || (mpVer == '7.0') || (mpVer == '6.1') || (mpVer == '6.0'))) {
 // this is not a supported combination so should have swapped 8 for 11
 cy.log('unsupported combination');    
 cy.get('#Starter_Java_Version option:selected').invoke('text').should('eq', '11');     
+} else if (((Cypress.env('JDK_VERSION') == '8') || (Cypress.env('JDK_VERSION') == 11)) && (jktVer == '11.0')) {
+// this is not a supported combination so should have swapped 8 or 11 for 17
+cy.log('unsupported combination');    
+cy.get('#Starter_Java_Version option:selected').invoke('text').should('eq', '17');     
 } else {
 cy.get("#starter_submit").click({force: true});
 

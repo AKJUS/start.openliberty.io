@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2020 IBM Corporation and others.
+ * Copyright (c) 2020, 2026 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,10 +26,10 @@ public class StartMetadata {
     private EnumMetadata<BuildSystemType> buildSystem = new EnumMetadata<BuildSystemType>(NLS.getMessage("buildSystem"),
             BuildSystemType.maven, BuildSystemType.values());
     private EnumStringMetadata jakartaEEVersion = new EnumStringMetadataWithConstraint(
-            NLS.getMessage("jakartaEEVersion"), "10.0", Constants.JAKARTA_EE_MICROPROFILE_COMPATIBILITIES,
+            NLS.getMessage("jakartaEEVersion"), "11.0", Constants.JAKARTA_EE_MICROPROFILE_COMPATIBILITIES,
             Constants.SUPPORTED_JAKARTAEE_VERSIONS);
     private EnumStringMetadata microProfileVersion = new EnumStringMetadata(NLS.getMessage("microProfileVersion"),
-            "7.0", Constants.SUPPORTED_MICROPROFILE_VERSIONS);
+            "7.1", Constants.SUPPORTED_MICROPROFILE_VERSIONS);
 
     public void updateDisplayStrings() {
         appName.updateString(NLS.getMessage("appName"));
