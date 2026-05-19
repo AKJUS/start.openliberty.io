@@ -1,5 +1,5 @@
 
-<#if javaVersion != "21" && javaVersion != "25">
+<#if javaVersion != "21">
 FROM icr.io/appcafe/open-liberty:kernel-slim-java${javaVersion}-openj9-ubi
 <#else>
 FROM icr.io/appcafe/open-liberty:kernel-slim-java${javaVersion}-openj9-ubi-minimal
