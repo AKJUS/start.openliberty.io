@@ -103,6 +103,10 @@ let jakarta_mp_versions = [
   },
   {
     jakarta: "None",
+    mp: "7.1"
+  },
+  {
+    jakarta: "None",
     mp: "7.0"
   },
   {
