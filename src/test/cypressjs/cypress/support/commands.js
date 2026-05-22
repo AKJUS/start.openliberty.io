@@ -103,6 +103,10 @@ let jakarta_mp_versions = [
   },
   {
     jakarta: "None",
+    mp: "7.1"
+  },
+  {
+    jakarta: "None",
     mp: "7.0"
   },
   {
@@ -185,14 +189,15 @@ if (mpVer) {
 // select java last because occasionally it's not getting the right version if it's first
 cy.get('#Starter_Java_Version',{ timeout:10000 }).select(convertNum2Str[Cypress.env('JDK_VERSION')]);
 
-if ((Cypress.env('JDK_VERSION') == '8') && ((jktVer == '10.0') || (mpVer == '7.1') || (mpVer == '7.0') || (mpVer == '6.1') || (mpVer == '6.0'))) {
-// this is not a supported combination so should have swapped 8 for 11
-cy.log('unsupported combination');    
-cy.get('#Starter_Java_Version option:selected').invoke('text').should('eq', '11');     
-} else if (((Cypress.env('JDK_VERSION') == '8') || (Cypress.env('JDK_VERSION') == 11)) && (jktVer == '11.0')) {
+// Need to do EE 11 check first since MP 7.0 and 7.1 both work with EE 10 and 11
+if (((Cypress.env('JDK_VERSION') == '8') || (Cypress.env('JDK_VERSION') == 11)) && (jktVer == '11.0')) {
 // this is not a supported combination so should have swapped 8 or 11 for 17
-cy.log('unsupported combination');    
-cy.get('#Starter_Java_Version option:selected').invoke('text').should('eq', '17');     
+cy.log('unsupported combination');
+cy.get('#Starter_Java_Version option:selected').invoke('text').should('eq', '17');
+} else if ((Cypress.env('JDK_VERSION') == '8') && ((jktVer == '10.0') || (mpVer == '7.1') || (mpVer == '7.0') || (mpVer == '6.1') || (mpVer == '6.0'))) {
+// this is not a supported combination so should have swapped 8 for 11
+cy.log('unsupported combination');
+cy.get('#Starter_Java_Version option:selected').invoke('text').should('eq', '11');
 } else {
 cy.get("#starter_submit").click({force: true});
 
