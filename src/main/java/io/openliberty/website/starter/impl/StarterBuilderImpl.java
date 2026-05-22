@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2023 IBM Corporation and others.
+ * Copyright (c) 2020, 2026 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -124,6 +124,13 @@ public class StarterBuilderImpl implements StarterBuilder {
             properties.put("jakartaEEFeature", "jakartaee-10.0");
             properties.put("jakartaEEBasePackageName", "jakarta");
         }
+        else if("11.0".equals(jakartaEEVersion)){
+            properties.put("jakartaEEGroupId", "jakarta.platform");
+            properties.put("jakartaEEArtifactId", "jakarta.jakartaee-api");
+            properties.put("jakartaEEVersion", "11.0.0");
+            properties.put("jakartaEEFeature", "jakartaee-11.0");
+            properties.put("jakartaEEBasePackageName", "jakarta");
+        }
         else {
             properties.put("jakartaEEGroupId", "jakarta.platform");
             properties.put("jakartaEEArtifactId", "jakarta.jakartaee-api");
@@ -151,7 +158,7 @@ public class StarterBuilderImpl implements StarterBuilder {
         // handle the case when Jakarta=None,MP=5.0 or 6.1
         // jakartaEEBasePackageName should be jakarta
         if ("None".equals(jakartaEEVersion) &&
-            ("5.0".equals(microProfileVersion) || "6.0".equals(microProfileVersion) || "6.1".equals(microProfileVersion) || "7.0".equals(microProfileVersion))) {
+            ("5.0".equals(microProfileVersion) || "6.0".equals(microProfileVersion) || "6.1".equals(microProfileVersion) || "7.0".equals(microProfileVersion) || "7.1".equals(microProfileVersion))) {
             properties.put("jakartaEEBasePackageName", "jakarta");
         }
         return this;
